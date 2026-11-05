@@ -409,7 +409,7 @@
           <button class="favorite" id="favorite-lesson" aria-label="Добавить урок в избранное" aria-pressed="false">☆</button>
           <div class="lesson-info">
             <h2>This, these,<br>that, those</h2>
-            <div class="lesson-meta"><span>A1</span><span>Grammar · Speaking</span></div>
+            <div class="lesson-meta"><span>5–6 класс · A1</span><span>Grammar · Speaking</span></div>
             <p class="lesson-time">≈ 15 min · Повторение</p>
             <a class="open-lesson" href="lessons/this-these-that-those/"><span>Open lesson</span><span aria-hidden="true">↗</span></a>
           </div>
@@ -433,7 +433,7 @@ document.querySelectorAll('[data-category]').forEach(b=>b.setAttribute('aria-pre
 favorite.setAttribute('aria-pressed',saved);favorite.textContent=saved?'★':'☆';favorite.setAttribute('aria-label',saved?'Убрать урок из избранного':'Добавить урок в избранное');
 const query=search.value.toLowerCase().trim();
 const matchText='this these that those demonstratives grammar speaking указательные местоимения рядом далеко повторение a1'.includes(query);
-card.hidden=!matchText||![0,1,2,3,4,5].includes(category)||(view==='favorites'&&!saved);
+card.hidden=!matchText||![0,3].includes(category)||(view==='favorites'&&!saved);
 const empty=document.getElementById('catalog-empty');empty.hidden=!card.hidden;empty.textContent=view==='favorites'&&!saved?'В избранном пока нет уроков. Нажми на звезду на карточке.':'По этому запросу уроков пока нет.';
 try{sessionStorage.setItem('nastya-catalog',JSON.stringify({category,view,query:search.value}))}catch{}
 }
