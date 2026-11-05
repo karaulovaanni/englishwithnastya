@@ -316,10 +316,48 @@
         scroll-behavior: auto !important;
       }
     }
-  </style>
+  
+    .page {display:flex;flex-direction:column;align-items:center;gap:28px;padding:24px clamp(18px,5vw,64px) 50px}
+    .site-header{width:min(100%,1180px);display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap}
+    .brand{display:flex;align-items:center;gap:10px;font-weight:800;color:var(--ink);text-decoration:none;font-size:19px}
+    .brand-mark{background:#eee9ff;border-radius:12px;padding:8px 12px}
+    .site-nav{display:flex;gap:8px;flex-wrap:wrap}
+    .site-nav a,.category,.reset-filter{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:10px 16px;border-radius:16px;border:1px solid #e5dff1;background:#fffefa;color:var(--ink);font:inherit;text-decoration:none;cursor:pointer}
+    .site-nav a[aria-current=page],.category[aria-pressed=true]{background:#c4b5fd;border-color:#c4b5fd}
+    .hero{min-height:0;padding:30px 48px;grid-template-columns:1.2fr .8fr;border-radius:30px;box-shadow:0 15px 40px #483d7510}
+    .hero h1{font-size:clamp(32px,4vw,48px);line-height:1.08;letter-spacing:-.045em}
+    .hero .mark{display:none}.hero .art{width:180px}.hero .tile{width:42px;font-size:21px;border-radius:13px}.hero .spark{font-size:18px}
+    .catalog{width:min(100%,1180px);scroll-margin-top:20px}
+    .categories{display:flex;gap:8px;overflow-x:auto;padding:4px 2px 12px}.category{white-space:nowrap;flex-shrink:0;font-size:15px}
+    .catalog-tools{display:flex;align-items:center;gap:12px;margin:10px 0 24px;flex-wrap:wrap}.search-label{flex:1;min-width:min(100%,240px)}.search-label span{display:block;margin-bottom:6px;font-size:14px;color:#5d6375}
+    .search-label input{width:100%;padding:13px 16px;border:1px solid #dfd8eb;border-radius:16px;background:white;font:inherit;color:var(--ink)}
+    .reset-filter{align-self:end}.lesson-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}
+    .lesson-card{position:relative;overflow:hidden;background:#fff;border:1px solid #e8e2ef;border-radius:24px;box-shadow:0 10px 28px #483d7510;transition:transform .18s,box-shadow .18s}
+    .lesson-card:hover{transform:translateY(-3px);box-shadow:0 16px 32px #483d7518}
+    .lesson-cover{height:142px;display:grid;place-content:center;gap:10px;padding:20px;background:linear-gradient(125deg,#eee9ff,#e6f2ff);color:var(--ink);text-decoration:none}
+    .cover-row{display:flex;justify-content:center;align-items:center;gap:18px;font-size:30px}.cover-row span{font-size:14px;font-weight:800;background:#fffefa;padding:7px 10px;border-radius:12px;min-width:65px;text-align:center}
+    .favorite{position:absolute;right:12px;top:12px;border:1px solid #ddd3f1;border-radius:50%;width:42px;height:42px;background:#fffefa;color:#69568f;font-size:25px;cursor:pointer}
+    .favorite[aria-pressed=true]{background:#fde68a;color:#59481b}
+    .lesson-info{padding:23px}.lesson-info h2{font-size:23px;line-height:1.3;margin:0 0 15px;letter-spacing:-.025em}.lesson-meta{display:flex;gap:7px;flex-wrap:wrap;font-size:13px}
+    .lesson-meta span{padding:5px 9px;border-radius:10px;background:#f2eefb}.lesson-meta span:nth-child(2){background:#eaf5ef}
+    .lesson-time{font-size:14px;color:#626a7c;margin:15px 0}.open-lesson{display:flex;justify-content:space-between;align-items:center;background:#c4b5fd;color:#27304a;border-radius:14px;padding:12px 16px;font-weight:700;text-decoration:none}
+    .empty{padding:24px 0;color:#626a7c}.empty[hidden],.lesson-card[hidden]{display:none}
+    a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid #7055a6;outline-offset:3px}
+    @media(max-width:900px){.lesson-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media(max-width:600px){.page{gap:20px}.hero{padding:26px;grid-template-columns:1fr auto;grid-template-rows:auto;gap:10px}.hero .art{width:105px}.hero .tile{width:28px;border-radius:8px;font-size:15px}.hero .flower{display:none}.hero h1{font-size:32px}.lesson-grid{grid-template-columns:1fr}.site-nav{width:100%}.site-nav a{flex:1;padding:9px 10px;font-size:14px}}
+    @media(max-width:370px){.hero{grid-template-columns:1fr}.hero .art{display:none}}
+</style>
 </head>
 <body>
   <main class="page">
+    <header class="site-header">
+      <a class="brand" href="./"><span class="brand-mark" aria-hidden="true">▤</span>English with Nastya</a>
+      <nav class="site-nav" aria-label="Навигация">
+        <a href="./" data-view="home" aria-current="page">Главная</a>
+        <a href="#lessons" data-view="all">Все уроки</a>
+        <a href="#favorites" data-view="favorites">Избранное</a>
+      </nav>
+    </header>
     <section class="hero" aria-labelledby="site-title">
       <div class="title-wrap">
         <div class="mark" aria-hidden="true">
@@ -353,6 +391,60 @@
         <span class="spark three">✦</span>
       </div>
     </section>
+
+    <section class="catalog" id="lessons" aria-label="Каталог уроков">
+      <div class="categories" aria-label="Категории">
+        <button class="category" data-category="0" aria-pressed="true">Все уроки</button><button class="category" data-category="1" aria-pressed="false">1–2 класс</button><button class="category" data-category="2" aria-pressed="false">3–4 класс</button><button class="category" data-category="3" aria-pressed="false">5–6 класс</button><button class="category" data-category="4" aria-pressed="false">Подростки</button><button class="category" data-category="5" aria-pressed="false">Взрослые</button>
+      </div>
+      <div class="catalog-tools">
+        <label class="search-label"><span>Поиск по названию и теме</span><input id="lesson-search" type="search" placeholder="Найти урок…" autocomplete="off"></label>
+        <button class="reset-filter" id="clear-catalog">Сбросить</button>
+      </div>
+      <div class="lesson-grid">
+        <article class="lesson-card" id="demonstratives-card">
+          <a class="lesson-cover" href="lessons/this-these-that-those/" aria-label="Открыть урок This, these, that, those">
+            <div class="cover-row" aria-hidden="true"><span>this</span>📘<span>that</span></div>
+            <div class="cover-row" aria-hidden="true"><span>these</span>📘📘<span>those</span></div>
+          </a>
+          <button class="favorite" id="favorite-lesson" aria-label="Добавить урок в избранное" aria-pressed="false">☆</button>
+          <div class="lesson-info">
+            <h2>This, these,<br>that, those</h2>
+            <div class="lesson-meta"><span>A1</span><span>Grammar · Speaking</span></div>
+            <p class="lesson-time">≈ 15 min · Повторение</p>
+            <a class="open-lesson" href="lessons/this-these-that-those/"><span>Open lesson</span><span aria-hidden="true">↗</span></a>
+          </div>
+        </article>
+      </div>
+      <p class="empty" id="catalog-empty" role="status" hidden></p>
+    </section>
   </main>
+
+<script>
+(()=>{
+const search=document.getElementById('lesson-search');
+const card=document.getElementById('demonstratives-card');
+const favorite=document.getElementById('favorite-lesson');
+let category=0,view='home',saved=false;
+try{const state=JSON.parse(sessionStorage.getItem('nastya-catalog')||'null');if(state){category=state.category||0;view=state.view||'home';search.value=state.query||''}saved=localStorage.getItem('nastya-favorite-demonstratives')==='true'}catch{}
+if(location.hash==='#favorites')view='favorites';
+function render(){
+document.querySelectorAll('[data-view]').forEach(a=>{if(a.dataset.view===view)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current')});
+document.querySelectorAll('[data-category]').forEach(b=>b.setAttribute('aria-pressed',Number(b.dataset.category)===category));
+favorite.setAttribute('aria-pressed',saved);favorite.textContent=saved?'★':'☆';favorite.setAttribute('aria-label',saved?'Убрать урок из избранного':'Добавить урок в избранное');
+const query=search.value.toLowerCase().trim();
+const matchText='this these that those demonstratives grammar speaking указательные местоимения рядом далеко повторение a1'.includes(query);
+card.hidden=!matchText||![0,1,2,3,4,5].includes(category)||(view==='favorites'&&!saved);
+const empty=document.getElementById('catalog-empty');empty.hidden=!card.hidden;empty.textContent=view==='favorites'&&!saved?'В избранном пока нет уроков. Нажми на звезду на карточке.':'По этому запросу уроков пока нет.';
+try{sessionStorage.setItem('nastya-catalog',JSON.stringify({category,view,query:search.value}))}catch{}
+}
+document.querySelectorAll('[data-category]').forEach(b=>b.onclick=()=>{category=Number(b.dataset.category);if(view==='home')view='all';render()});
+document.querySelectorAll('[data-view]').forEach(a=>a.onclick=e=>{e.preventDefault();view=a.dataset.view;if(view==='all'){category=0;search.value=''}render();if(view==='home')window.scrollTo({top:0,behavior:'smooth'});else document.getElementById('lessons').scrollIntoView({behavior:'smooth'});history.replaceState(null,'',view==='home'?location.pathname:view==='favorites'?'#favorites':'#lessons')});
+document.querySelector('.brand').onclick=e=>{e.preventDefault();view='home';render();window.scrollTo({top:0,behavior:'smooth'});history.replaceState(null,'',location.pathname)};
+search.oninput=render;
+favorite.onclick=()=>{saved=!saved;try{localStorage.setItem('nastya-favorite-demonstratives',String(saved))}catch{}render()};
+document.getElementById('clear-catalog').onclick=()=>{category=0;search.value='';view='all';render()};
+render();
+})();
+</script>
 </body>
 </html>
