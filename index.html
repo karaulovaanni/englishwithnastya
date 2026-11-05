@@ -1,0 +1,358 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#faf9f6">
+  <title>English with Nastya</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --paper: #faf9f6;
+      --ink: #27304a;
+      --lavender: #c4b5fd;
+      --lavender-deep: #8b76da;
+      --blue: #bfdbfe;
+      --mint: #bcebd9;
+      --peach: #f8c7b5;
+      --yellow: #fce7a5;
+      --white: #fffefa;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body { min-height: 100%; }
+
+    body {
+      margin: 0;
+      overflow-x: hidden;
+      background:
+        radial-gradient(ellipse at 12% 15%, rgba(196, 181, 253, .18), transparent 32rem),
+        radial-gradient(ellipse at 88% 88%, rgba(167, 232, 208, .18), transparent 30rem),
+        var(--paper);
+      color: var(--ink);
+      font-family: "Nunito", "Avenir Next", Avenir, "Segoe UI", sans-serif;
+    }
+
+    .page {
+      min-height: 100svh;
+      display: grid;
+      place-items: center;
+      padding: clamp(20px, 5vw, 72px);
+    }
+
+    .hero {
+      isolation: isolate;
+      position: relative;
+      display: grid;
+      grid-template-columns: 1.05fr .95fr;
+      align-items: center;
+      width: min(100%, 1180px);
+      min-height: min(690px, calc(100svh - 80px));
+      padding: clamp(34px, 7vw, 88px);
+      overflow: hidden;
+      border: 1px solid rgba(92, 76, 151, .08);
+      border-radius: clamp(30px, 5vw, 54px);
+      background:
+        radial-gradient(circle at 76% 25%, rgba(255,255,255,.82), transparent 27%),
+        linear-gradient(135deg, #eee9ff 0%, #f4f0ff 47%, #e9f4ff 100%);
+      box-shadow: 0 28px 80px rgba(72, 61, 117, .11);
+    }
+
+    .hero::before,
+    .hero::after {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .hero::before {
+      width: 360px;
+      height: 360px;
+      right: -112px;
+      top: -145px;
+      background: rgba(255, 255, 255, .36);
+    }
+
+    .hero::after {
+      width: 280px;
+      height: 280px;
+      left: 38%;
+      bottom: -210px;
+      background: rgba(255, 255, 255, .32);
+    }
+
+    .title-wrap {
+      position: relative;
+      z-index: 2;
+      max-width: 620px;
+      animation: rise-in .8s cubic-bezier(.2,.8,.2,1) both;
+    }
+
+    .mark {
+      display: grid;
+      place-items: center;
+      width: 62px;
+      height: 62px;
+      margin-bottom: clamp(26px, 4vw, 42px);
+      border: 1px solid rgba(139, 118, 218, .16);
+      border-radius: 21px;
+      background: rgba(255, 254, 250, .76);
+      box-shadow: 0 10px 24px rgba(91, 77, 143, .1);
+    }
+
+    .mark svg { width: 35px; height: 35px; }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(3.5rem, 8.2vw, 7.6rem);
+      font-weight: 800;
+      letter-spacing: -.075em;
+      line-height: .91;
+    }
+
+    h1 span { display: block; }
+    h1 .first { white-space: nowrap; }
+    h1 .name {
+      margin-top: .13em;
+      color: var(--lavender-deep);
+    }
+
+    .art {
+      position: relative;
+      width: min(100%, 440px);
+      aspect-ratio: 1 / 1;
+      justify-self: center;
+      animation: float-in 1s .12s cubic-bezier(.2,.8,.2,1) both;
+    }
+
+    .orbit {
+      position: absolute;
+      inset: 7%;
+      border: 1px solid rgba(139, 118, 218, .18);
+      border-radius: 50%;
+      transform: rotate(-18deg) scaleY(.73);
+    }
+
+    .orbit::before,
+    .orbit::after {
+      content: "";
+      position: absolute;
+      border: 1px solid rgba(139, 118, 218, .12);
+      border-radius: 50%;
+      inset: 8%;
+    }
+
+    .orbit::after { inset: 17%; }
+
+    .book {
+      position: absolute;
+      width: 63%;
+      height: 47%;
+      left: 19%;
+      top: 29%;
+      transform: rotate(-8deg);
+      filter: drop-shadow(0 24px 18px rgba(81, 68, 124, .17));
+    }
+
+    .book-back {
+      position: absolute;
+      inset: 7% 0 0 4%;
+      border-radius: 15px 20px 19px 13px;
+      background: #8f7bd8;
+      transform: skewY(3deg);
+    }
+
+    .book-pages {
+      position: absolute;
+      inset: 0 2% 9% 0;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      overflow: hidden;
+      border-radius: 16px 20px 17px 13px;
+      background: var(--white);
+      box-shadow: inset 0 -5px 0 rgba(39, 48, 74, .045);
+    }
+
+    .book-pages::before {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: #e8e1fa;
+      box-shadow: -5px 0 9px rgba(39, 48, 74, .04), 5px 0 9px rgba(39, 48, 74, .04);
+    }
+
+    .page-half { position: relative; padding: 14% 12%; }
+    .page-half::before,
+    .page-half::after {
+      content: "";
+      position: absolute;
+      left: 19%;
+      right: 19%;
+      height: 3px;
+      border-radius: 4px;
+      background: #e9e4f4;
+    }
+    .page-half::before { top: 31%; }
+    .page-half::after { top: 43%; }
+    .page-half.right::before { background: #d6eddf; }
+    .page-half.right::after { top: 55%; }
+
+    .flower {
+      position: absolute;
+      width: 68px;
+      height: 68px;
+      right: 11%;
+      bottom: 16%;
+      transform: rotate(12deg);
+    }
+
+    .flower i {
+      position: absolute;
+      left: 27px;
+      top: 2px;
+      width: 15px;
+      height: 29px;
+      border-radius: 50% 50% 45% 45%;
+      background: var(--peach);
+      transform-origin: 7px 32px;
+    }
+    .flower i:nth-child(2) { transform: rotate(72deg); }
+    .flower i:nth-child(3) { transform: rotate(144deg); }
+    .flower i:nth-child(4) { transform: rotate(216deg); }
+    .flower i:nth-child(5) { transform: rotate(288deg); }
+    .flower b {
+      position: absolute;
+      left: 28px;
+      top: 28px;
+      width: 13px;
+      height: 13px;
+      border-radius: 50%;
+      background: var(--yellow);
+    }
+
+    .tile {
+      position: absolute;
+      display: grid;
+      place-items: center;
+      width: clamp(54px, 8vw, 82px);
+      aspect-ratio: 1;
+      border: 1px solid rgba(255,255,255,.85);
+      border-radius: 23px;
+      color: var(--ink);
+      font-size: clamp(1.5rem, 3vw, 2.35rem);
+      font-weight: 800;
+      box-shadow: 0 14px 30px rgba(74, 66, 116, .12);
+    }
+
+    .tile-a {
+      top: 12%;
+      left: 20%;
+      background: var(--yellow);
+      transform: rotate(-12deg);
+    }
+    .tile-b {
+      top: 20%;
+      right: 12%;
+      background: var(--mint);
+      transform: rotate(9deg);
+    }
+    .tile-c {
+      bottom: 13%;
+      left: 12%;
+      background: var(--blue);
+      transform: rotate(8deg);
+    }
+
+    .spark {
+      position: absolute;
+      color: #a28de8;
+      font-size: 28px;
+      line-height: 1;
+    }
+    .spark.one { top: 40%; right: 5%; }
+    .spark.two { left: 43%; top: 8%; font-size: 19px; color: #e4aa83; }
+    .spark.three { bottom: 26%; right: 20%; font-size: 18px; color: #79bca1; }
+
+    @keyframes rise-in {
+      from { opacity: 0; transform: translateY(18px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes float-in {
+      from { opacity: 0; transform: translateY(12px) scale(.97); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    @media (max-width: 760px) {
+      .page { padding: 18px; }
+      .hero {
+        min-height: calc(100svh - 36px);
+        grid-template-columns: 1fr;
+        grid-template-rows: auto minmax(230px, 1fr);
+        align-content: center;
+        gap: 12px;
+        padding: clamp(28px, 8vw, 52px);
+      }
+      .mark { width: 54px; height: 54px; border-radius: 18px; margin-bottom: 25px; }
+      h1 { font-size: clamp(3.3rem, 15vw, 6.4rem); }
+      .art { width: min(82vw, 360px); }
+    }
+
+    @media (max-width: 390px) {
+      h1 { font-size: clamp(2.85rem, 14.5vw, 3.6rem); }
+      .hero { padding: 25px; }
+      .art { width: min(85vw, 300px); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="hero" aria-labelledby="site-title">
+      <div class="title-wrap">
+        <div class="mark" aria-hidden="true">
+          <svg viewBox="0 0 48 48" fill="none">
+            <path d="M7 11.5c6.8-2.1 12.5-.8 17 3.2v26c-4.5-4-10.2-5.3-17-3.2v-26Z" fill="#C4B5FD" stroke="#8B76DA" stroke-width="2.2" stroke-linejoin="round"/>
+            <path d="M41 11.5c-6.8-2.1-12.5-.8-17 3.2v26c4.5-4 10.2-5.3 17-3.2v-26Z" fill="#BFDBFE" stroke="#8B76DA" stroke-width="2.2" stroke-linejoin="round"/>
+            <path d="M12 19c3.2-.6 6.1-.2 8.5 1.2M12 25c3.2-.6 6.1-.2 8.5 1.2M36 19c-3.2-.6-6.1-.2-8.5 1.2M36 25c-3.2-.6-6.1-.2-8.5 1.2" stroke="#fffefa" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <h1 id="site-title">
+          <span class="first">English with</span>
+          <span class="name">Nastya</span>
+        </h1>
+      </div>
+
+      <div class="art" aria-hidden="true">
+        <div class="orbit"></div>
+        <div class="tile tile-a">A</div>
+        <div class="tile tile-b">B</div>
+        <div class="tile tile-c">C</div>
+        <div class="book">
+          <div class="book-back"></div>
+          <div class="book-pages">
+            <div class="page-half"></div>
+            <div class="page-half right"></div>
+            <div class="flower"><i></i><i></i><i></i><i></i><i></i><b></b></div>
+          </div>
+        </div>
+        <span class="spark one">✦</span>
+        <span class="spark two">✧</span>
+        <span class="spark three">✦</span>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
